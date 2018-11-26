@@ -1,8 +1,3 @@
-```
-function test() {
-  console.log("notice the blank line before this function?");
-}
-```
 ToDo list app expressi ja node.js-iga
 
 Setup:
