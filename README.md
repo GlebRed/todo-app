@@ -1,15 +1,8 @@
-var express = require('express');
-
-var app = express();
-
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-});
-
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
 Kui express on installitud, siis lisame index.js faili koodijupi: 
 
 //require the just installed express app
