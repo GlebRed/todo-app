@@ -1,4 +1,4 @@
-ToDo list app expressi ja node.js-iga
+ToDo list app expressi ja node.js-iga  (Henri Vajak, Sten-Erik Tool)
 
 ##UPD 26.11.18 by Gleb Redko
 
