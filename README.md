@@ -1,15 +1,14 @@
-ToDo list app expressi ja node.js-iga
+var express = require('express');
 
-Setup:
+var app = express();
 
-Loo tühi folder/directory nimega todo-app. 
-Seal folderi sees tuleb luua uus fail nimega index.js – siia läheb enamus koodist.
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
 
-Server setup:
-
-Et saada server tööle, tuleb installida express, selleks kirjutada konsooli/terminali command:
-
-npm install express --save
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+});
 
 Kui express on installitud, siis lisame index.js faili koodijupi: 
 
