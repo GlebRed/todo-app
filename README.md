@@ -3,8 +3,21 @@ function test() {
   console.log("notice the blank line before this function?");
 }
 ```
+ToDo list app expressi ja node.js-iga
+
+Setup:
+
+Loo tühi folder/directory nimega todo-app. 
+Seal folderi sees tuleb luua uus fail nimega index.js – siia läheb enamus koodist.
+
+Server setup:
+Et saada server tööle, tuleb installida express, selleks kirjutada konsooli/terminali command:
+
+npm install express --save
+
 Kui express on installitud, siis lisame index.js faili koodijupi: 
 
+```
 //require the just installed express app
 var express = require('express');
 //then we call express
@@ -20,12 +33,13 @@ app.get('/', function (req, res) {
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 });
+```
 
 Nüüd saame testida, kas server töötab. Selleks kirjutame commandi:
 
 node index.js
 
-URLi kirjutades localhost:3000, peaksilmuma „Hello world!“
+URLi kirjutades localhost:3000, peaks ilmuma „Hello world!“
 
 View setup:
 
@@ -37,10 +51,13 @@ npm install ejs --save
 
 Nüüd paneme püsti template engine, sisetades sellise rea require statementide alla:
 
+```
 app.set('view engine', 'ejs');
+```
 
 EJSi võetakse by default views directoryst. Looge uus folder nimega views oma directorysse. Viewsi folderisse lisage fail nimega index.ejs ja lisage järgnev koodijupp:
 
+```
 <html>
   <head>
     <title> ToDo App </title>
@@ -59,41 +76,45 @@ EJSi võetakse by default views directoryst. Looge uus folder nimega views oma d
 </div>
 </body>
 </html>
+```
 
-Nüüd vahetame app.get koodi index.js failis ära sellise koodijupiga:
+Nüüd vahetame app.get koodi index.js failis ära sellise koodijupiga: 
 
+```
 app.get('/', function(req, res){
    res.render('index');
 });
+```
 
 Nüüd kui server käima lüüa, siis peaks lehele kuvatama index.ejs faili sisu.
 
 Task Setup: 
-
 Meil on preagu üks route olemas, kui me tahame, et app töötaks, peab lisama ka post route. Vaadates index.ejs faili, siis me näeme, et meie form submitib post requesti /addtask route:
 
+```
 <form action="/addtask" method="POST">
+```
 
 Nüüd kui me teame, kuhu meie form postib, siis saame üles seada route: 
 
+```
 app.post('/addtask', function (req, res) {
    res.render('index')
 });
+```
 
-Lisame Express Middleware. Middleware on funktsioon, millel on ligipääs req ja res bodidele, et saaks teha keerukamaid taske. Me hakkame kasutame body-parser middleware. See lubab meil kasutada key-value paare req-body objektis. Praegusel juhul on meil võimalik ligipääseda newtaskile, mille kirjutab sisse kasutaja kliendi poole peal ja seivib arrayina serveri poole peal.
+Lisame Express Middleware. Middleware on funktsioon, millel on ligipääs req ja res bodidele, et saaks teha keerukamaid taske. Me hakkame kasutame body-parser middleware. See lubab meil kasutada key-value paare req-body objektis. Praegusel juhul on meil võimalik ligipääseda newtaskile, mille kirjutab sisse kasutaja kliendi poole peal ja seivib arrayina serveri poole peal. 
 
 Body-parseri installimiseks:
-
 npm install body-parser --save
 
 Kui installitud, siis lisame index.js faili rea: 
 
+```
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-
 Lõpuks me saame updateda meie post requesti, et ta salvestaks newtaski value arraysse ja samal ajal lisab loopi index.ejs faili, et displayiks listi kõikide taskidega. 
 Index.js file: 
-
 //the task array with initial placeholders for added task
 var task = ["buy socks", "practise with nodejs"];
 //post route for adding new task
@@ -108,24 +129,29 @@ app.post('/addtask', function (req, res) {
 app.get("/", function(req, res) {
     res.render("index", { task: task});
 });
+```
 
 index.ejs file:
 
+```
 <h2> Added Task </h2>
    <% for( var i = 0; i < task.length; i++){ %>
 <li><input type="checkbox" name="check" value="<%= task[i] %>" /> <%= task[i] %> </li>
 <% } %>
+```
 
 Testime appi: node index.js ja peaks saama lisada taski.
 
 Delete Task Setup:
-
 Peale uue taski lisamist, peabo lema võimalus ka kustutada seda. Selleks, et saaks checkida completed taski, kasutame remove buttonit meie EJS failis.
 
+```
 <button formaction="/removetask" type="submit"> Remove </button>
+```
 
 Index.js file:
 
+```
 //the completed task array with initial placeholders for removed task
 var complete = ["finish jquery"];
 app.post("/removetask", function(req, res) {
@@ -142,18 +168,25 @@ if (typeof completeTask === "string") {
 }
    res.redirect("/");
 });
+```
 
 App.get-i peab ka lisama selle:
 
+```
 app.get("/", function(req, res) {
     res.render("index", { task: task, complete: complete });
 });
+```
 
 Index.ejs file:
+
+```
 <h2> Completed task </h2>
     <% for(var i = 0; i < complete.length; i++){ %>
       <li><input type="checkbox" checked><%= complete[i] %> </li>
 <% } %>
+```
+
 
 
 
