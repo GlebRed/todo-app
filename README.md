@@ -1,5 +1,25 @@
 ToDo list app expressi ja node.js-iga
 
+##UPD 26.11.18 by Gleb Redko
+
+Added support for MongoDB
+
+On macOS install MongoDB
+
+`brew install mongodb`
+
+`brew services start mongodb`
+
+Windows 
+
+https://docs.mongodb.com/manual/installation/
+
+Don't forget 
+
+`npm install` in app home dir
+
+##END UPD
+
 Setup:
 
 Loo tühi folder/directory nimega todo-app. 
